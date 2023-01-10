@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiplication Quiz</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>Multiplication Quiz</h1>
+    <div id="question"></div>
+    <form>
+        <input type="text" id="answer">
+        <input type="button" value="Submit" onclick="checkAnswer()">
+    </form>
+    <div id="result"></div>
+    <div id="score"></div>
+</body>
+</html>
+var num1, num2, answer, score = 0;
+var questions = 20;
+
+function generateQuestion() {
+    num1 = Math.floor(Math.random() * 9) + 2;
+    num2 = Math.floor(Math.random() * 9) + 2;
+    answer = num1 * num2;
+    document.getElementById("question").innerHTML = num1 + " x " + num2 + " = ";
+}
+
+function checkAnswer() {
+    var userAnswer = document.getElementById("answer").value;
+    if (userAnswer == answer) {
+        score++;
+        document.getElementById("result").innerHTML = "Correct!";
+    } else {
+        document.getElementById("result").innerHTML = "Incorrect. The correct answer is " + answer + ".";
+    }
+    document.getElementById("answer").value = "";
+    questions--;
+    if (questions === 0) {
+        document.getElementById("score").innerHTML = "Your final score is " + score + " out of 20.";
+        document.getElementById("question").style.display = "none";
+        document.getElementById("answer").style.display = "none";
+        document.getElementsByTagName("form")[0].style.display = "none";
+        document.getElementsByTagName("input")[1].style.display = "none";
+        return;
+    }
+    generateQuestion();
+}
+
+generateQuestion();
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#result {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#score {
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+}
